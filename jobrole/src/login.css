@@ -1,0 +1,186 @@
+/* FULL PAGE BACKGROUND – NO SCROLL */
+.auth-page {
+  height: 100vh; /* Full screen */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Perfect center */
+  background: linear-gradient(135deg, #ffe6f1, #ffd2e8, #ffecf6);
+  overflow: hidden; /* Prevent scrolling */
+}
+
+/* OUTER LOGIN BOX */
+.auth-container {
+  width: 900px;
+  height: 520px;
+  display: flex;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #fceff3;
+  border: 2px solid #000;
+  box-shadow: 0px 20px 55px rgba(0, 0, 0, 0.20);
+  animation: fadeIn 0.7s ease;
+}
+
+/* LEFT SIDE */
+.auth-container form {
+  width: 50%;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-container form h2 {
+  font-size: 36px;
+  font-weight: 900;
+  margin-bottom: 25px;
+  color: #1a1a1a;
+}
+
+/* Inputs */
+.auth-container input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  background: white;
+  border: 2px solid #000;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.auth-container input:focus {
+  border-color: #a04cff;
+  box-shadow: 0 0 10px rgba(158, 68, 255, 0.5);
+  transform: scale(1.03);
+}
+
+/* Login Button */
+.auth-container button {
+  padding: 15px;
+  width: 100%;
+  border-radius: 12px;
+  background: #8d4aff;
+  color: white;
+  font-size: 18px;
+  border: 2px solid #000;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 600;
+}
+
+.auth-container button:hover {
+  background: #742fff;
+  transform: translateY(-3px);
+}
+
+.auth-container button:active {
+  transform: scale(0.95);
+}
+
+/* GOOGLE BUTTON *//* Soft Google Button */
+.google-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+ margin-top: 16px;
+  /* Same gradient as RIGHT SIDE PANEL */
+  background: #742fff;
+
+  border: 2px solid #000; /* black border to match your style */
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff; /* white text */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  cursor: pointer;
+ 
+  transition: 0.25s ease;
+}
+
+.google-btn img {
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.3)); /* slight pop */
+}
+
+.google-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.google-btn:active {
+  transform: scale(0.94);
+}
+
+
+
+/* REMOVE signup text under google button */
+.auth-container form p {
+  display: none;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+  width: 50%;
+  padding: 60px;
+  background: linear-gradient(150deg, #d26bff, #ff8bd1, #b57aff);
+  color: white;
+  border-left: 2px solid black;
+  border-radius: 150px 0 0 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-panel h2 {
+  font-size: 40px;
+  font-weight: 900;
+  margin-bottom: 12px;
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.25);
+}
+
+.right-panel p {
+  font-size: 17px;
+  margin-bottom: 35px;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+}
+
+/* Signup button stays only here */
+.panel-btn {
+  background: #ffffff !important;
+  color: #000 !important;
+  width: 250px;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 18px;
+  border: 2px solid #000;
+  transition: 0.25s;
+  font-weight: 700;
+  margin-top: 20px; /* Lower it slightly */
+}
+
+.panel-btn:hover {
+  background: #f4e5ff !important;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+.panel-btn:active {
+  transform: scale(0.95);
+}
+.page-bg {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffe3ec; /* light pink */
+}
