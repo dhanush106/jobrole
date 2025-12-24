@@ -1,0 +1,42 @@
+Columns: ['What is your name?', 'What is your gender?', 'What was your course in UG?', 'What is your UG specialization? Major Subject (Eg; Mathematics)', 'What are your interests?', 'What are your skills ? (Select multiple if necessary)', 'What was the average CGPA or Percentage obtained in under graduation?', 'Did you do any certification courses additionally?', 'If yes, please specify your certificate course title.', 'Are you working?', 'If yes, then what is/was your first Job title in your current field of work? If not applicable, write NA.               ', 'Have you done masters after undergraduation? If yes, mention your field of masters.(Eg; Masters in Mathematics)']
+
+Target Column: If yes, then what is/was your first Job title in your current field of work? If not applicable, write NA.               
+
+Number of unique roles: 483
+
+Top 20 Roles:
+If yes, then what is/was your first Job title in your current field of work? If not applicable, write NA.               
+Student (Unemployed)           116
+Computer Software Engineer      27
+Mechanical Engineer             22
+Business Analyst                20
+Teacher                         16
+Civil & Structural Engineer     15
+Data Analyst                    15
+Software Engineer               10
+Teaching                         9
+Sales Executive                  9
+Java Developer                   8
+Data Engineer                    8
+Software Developer               8
+associate Engineer               7
+Mechanical Design Engineer       7
+Software developer               6
+Back End Developer               6
+Assistant Professor              6
+Marketing Manager                5
+Web Developer                    5
+Name: count, dtype: int64
+
+Sample Skills:
+0                                      Python;SQL;Java
+1    Critical Thinking, Analytic Thinking, SQL, Pro...
+2               People management;Communication skills
+3                  Accounting Skills;Critical Thinking
+4    \nPLC Allen Bradley;PLC Ladder Logic;LabVIEW;B...
+5                                      C,C++,HTML,Java
+6    Critical Thinking, Analytic Thinking, Communic...
+7                                                   NO
+8    Programming Language skills;Critical Thinking;...
+9    Active Listening;Critical Thinking;Gathering I...
+Name: What are your skills ? (Select multiple if necessary), dtype: object
