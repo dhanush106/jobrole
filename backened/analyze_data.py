@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-INPUT_FILE = r'c:\Users\sarpo\Downloads\jobrole-main\backened\career_recommender.csv'
+INPUT_FILE = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\career_recommender.csv'
 
 def analyze():
     df = pd.read_csv(INPUT_FILE)

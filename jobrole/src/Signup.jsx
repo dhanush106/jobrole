@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "./axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
@@ -17,6 +17,39 @@ function Signup() {
       alert(err.response?.data?.message || "Signup failed");
     }
   };
+
+  const handleGoogleResponse = async (resp) => {
+    try {
+      const res = await axios.post("/auth/google-login", {
+        token: resp.credential,
+      });
+      localStorage.setItem("token", res.data.token);
+      navigate("/dashboard");
+    } catch {
+      alert("Google login failed");
+    }
+  };
+
+  useEffect(() => {
+    const loadGoogleButton = () => {
+      if (window.google) {
+        window.google.accounts.id.initialize({
+          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+          callback: handleGoogleResponse,
+        });
+
+        window.google.accounts.id.renderButton(
+          document.getElementById("googleBtn"),
+          { theme: "outline", size: "large", width: "100%" }
+        );
+      } else {
+        setTimeout(loadGoogleButton, 100);
+      }
+    };
+
+    loadGoogleButton();
+  }, []);
+
 
   return (
     <div className="auth-page">

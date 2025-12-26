@@ -8,7 +8,7 @@ import numpy as np
 import warnings
 warnings.filterwarnings("ignore")
 
-MODELS_DIR = r'c:\Users\sarpo\Downloads\jobrole-main\backened\models'
+MODELS_DIR = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\models'
 
 def load_artifacts():
     try:

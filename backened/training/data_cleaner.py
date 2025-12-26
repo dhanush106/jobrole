@@ -3,8 +3,8 @@ import numpy as np
 import re
 import os
 
-INPUT_FILE = r'c:\Users\sarpo\Downloads\jobrole-main\backened\career_recommender.csv'
-OUTPUT_FILE = r'c:\Users\sarpo\Downloads\jobrole-main\backened\training\cleaned_career_data.csv'
+INPUT_FILE = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\career_recommender.csv'
+OUTPUT_FILE = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\training\cleaned_career_data.csv'
 
 def clean_role(role):
     if pd.isna(role):

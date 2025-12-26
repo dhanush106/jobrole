@@ -13,8 +13,9 @@ from xgboost import XGBClassifier
 # ------------------------------------------------------------
 # 1. LOAD LOCAL DATASET (Dice.com Jobs)
 # ------------------------------------------------------------
-INPUT_FILE = r'c:\Users\sarpo\Downloads\jobrole-main\backened\jobrole.csv'
-MODELS_DIR = r'c:\Users\sarpo\Downloads\jobrole-main\backened\models'
+
+INPUT_FILE = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\jobrole.csv'
+MODELS_DIR = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\models'
 
 if not os.path.exists(MODELS_DIR):
     os.makedirs(MODELS_DIR)
