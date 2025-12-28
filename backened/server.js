@@ -6,6 +6,7 @@ const cors = require("cors");  // <-- Make sure this is here
 // Routes & utils
 const { router: authRoutes } = require("./routes/auth");
 const userRoutes = require("./routes/userRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 const clearExpiredTokens = require("./tokenCleaner");
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(express.json());
 // -------------------
 app.use("/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/admin", adminRoutes);
 
 
 // -------------------

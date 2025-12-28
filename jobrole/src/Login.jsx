@@ -93,6 +93,11 @@ function Login() {
           <Link to="/signup">
             <button className="panel-btn">Sign Up</button>
           </Link>
+          <div className="admin-link-v4">
+            <Link to="/admin-login" style={{ fontSize: '0.8rem', opacity: 0.6, marginTop: '20px', color: '#fff', textDecoration: 'none' }}>
+              Admin Access →
+            </Link>
+          </div>
         </div>
       </div>
     </div>

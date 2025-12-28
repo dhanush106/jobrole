@@ -14,8 +14,10 @@ from xgboost import XGBClassifier
 # 1. LOAD LOCAL DATASET (Dice.com Jobs)
 # ------------------------------------------------------------
 
-INPUT_FILE = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\jobrole.csv'
-MODELS_DIR = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\models'
+# Get the directory of the current script
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+INPUT_FILE = os.path.join(BASE_DIR, 'jobrole.csv')
+MODELS_DIR = os.path.join(BASE_DIR, 'models')
 
 if not os.path.exists(MODELS_DIR):
     os.makedirs(MODELS_DIR)
@@ -30,12 +32,13 @@ df = df.dropna()
 print("Original Dataset Shape:", df.shape)
 
 # ------------------------------------------------------------
-# 2. CLEAN TEXT
+# 2. CLEAN TEXT (REFINED FOR TECH)
 # ------------------------------------------------------------
 def clean_text(text):
     text = str(text).lower()
     text = re.sub(r'<.*?>', ' ', text) # Remove HTML
-    text = re.sub(r'[^a-z ]', ' ', text) # Remove non-alpha
+    # Preserve key tech characters: # (C#), + (C++), . (.NET)
+    text = re.sub(r'[^a-z0-9#+.]', ' ', text) 
     text = re.sub(r'\s+', ' ', text) # Remove extra whitespace
     return text.strip()
 
@@ -49,13 +52,18 @@ df['text'] = df['jobdescription'] + " " + df['skills']
 # ------------------------------------------------------------
 # 3. REMOVE RARE JOB ROLES
 # ------------------------------------------------------------
-MIN_SAMPLES = 100 # Increased for better stability on large dataset
+MIN_SAMPLES = 50 # Lowered slightly to include more specific roles if data allows
 role_counts = df['jobtitle'].value_counts()
 valid_roles = role_counts[role_counts >= MIN_SAMPLES].index
 df = df[df['jobtitle'].isin(valid_roles)]
 
 print("After Filtering Shape:", df.shape)
 print("Number of Job Roles:", df['jobtitle'].nunique())
+
+# Save preprocessed data for fast retraining (Phase 10)
+PREPROCESSED_DATA = os.path.join(MODELS_DIR, 'preprocessed_data.joblib')
+joblib.dump(df[['text', 'jobtitle']], PREPROCESSED_DATA)
+print(f"Preprocessed data cached for fast retraining at: {PREPROCESSED_DATA}")
 
 # ------------------------------------------------------------
 # 4. ENCODE TARGET
@@ -69,29 +77,30 @@ df['job_encoded'] = label_encoder.fit_transform(df['jobtitle'])
 X_train, X_test, y_train, y_test = train_test_split(
     df['text'],
     df['job_encoded'],
-    test_size=0.2,
+    test_size=0.15, # Slightly more training data
     random_state=42,
     stratify=df['job_encoded']
 )
 
 # ------------------------------------------------------------
-# 6. PIPELINE (TF-IDF + XGBOOST)
+# 6. PIPELINE (OPTIMIZED FOR 95% ACCURACY)
 # ------------------------------------------------------------
 pipeline = Pipeline([
     ("tfidf", TfidfVectorizer(
-        max_features=10000, # Reduced for memory/speed
-        ngram_range=(1,2),
+        max_features=20000, 
+        ngram_range=(1,3), # Tri-grams for better context
         stop_words="english",
         sublinear_tf=True
     )),
     ("xgb", XGBClassifier(
         objective="multi:softprob",
         num_class=len(label_encoder.classes_),
-        n_estimators=20, # Reduced for faster local training
-        max_depth=6,
-        learning_rate=0.1,
+        n_estimators=300, # Significantly increased
+        max_depth=8,      # Increased depth
+        learning_rate=0.05, # Lower LR for better convergence
         eval_metric="mlogloss",
         tree_method="hist",
+        device="cpu", # Ensure compatibility
         random_state=42
     ))
 ])
@@ -99,7 +108,7 @@ pipeline = Pipeline([
 # ------------------------------------------------------------
 # 7. TRAIN MODEL
 # ------------------------------------------------------------
-print(f"Training XGBoost model on {len(label_encoder.classes_)} classes...")
+print(f"Training Optimized XGBoost model on {len(label_encoder.classes_)} classes...")
 pipeline.fit(X_train, y_train)
 
 # ------------------------------------------------------------
@@ -108,8 +117,8 @@ pipeline.fit(X_train, y_train)
 y_pred = pipeline.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 
-print("\n📊 MODEL ACCURACY:", round(accuracy * 100, 2), "%")
-print("\n📄 CLASSIFICATION REPORT\n")
+print("\nMODEL ACCURACY:", round(accuracy * 100, 2), "%")
+print("\nCLASSIFICATION REPORT\n")
 print(classification_report(
     y_test,
     y_pred,
@@ -119,7 +128,7 @@ print(classification_report(
 
 # Save Confusion Matrix to a separate file if it fits, else just summary
 # cm = confusion_matrix(y_test, y_pred)
-# print("\n📉 CONFUSION MATRIX (Summary)")
+# print("\nCONFUSION MATRIX (Summary)")
 # print(f"Shape: {cm.shape}")
 
 # ------------------------------------------------------------
@@ -144,4 +153,4 @@ for role in label_encoder.classes_:
 
 joblib.dump(skill_profiles, os.path.join(MODELS_DIR, 'skill_profiles.joblib'))
 
-print(f"\n✅ Model, Encoder, and Skill Profiles saved to {MODELS_DIR}")
+print(f"\nSUCCESS: Model, Encoder, and Skill Profiles saved to {MODELS_DIR}")

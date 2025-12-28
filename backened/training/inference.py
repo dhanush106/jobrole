@@ -8,7 +8,9 @@ import numpy as np
 import warnings
 warnings.filterwarnings("ignore")
 
-MODELS_DIR = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\models'
+# Get the directory of the current script
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODELS_DIR = os.path.join(BASE_DIR, 'models')
 
 def load_artifacts():
     try:
@@ -27,7 +29,8 @@ def predict(input_data):
     def clean_text(text):
         import re
         text = str(text).lower()
-        text = re.sub(r'[^a-z ]', ' ', text)
+        text = re.sub(r'<.*?>', ' ', text)
+        text = re.sub(r'[^a-z0-9#+.]', ' ', text)
         text = re.sub(r'\s+', ' ', text)
         return text.strip()
 

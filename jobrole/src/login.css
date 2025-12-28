@@ -277,3 +277,8 @@
     border-top: var(--border);
   }
 }
+
+.admin-link-v4 {
+  margin-top: 20px;
+  background: #000;
+}

@@ -3,6 +3,8 @@ import Signup from "./Signup";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
+import Admin_Login from "./Admin_Login";
+import Admin from "./Admin";
 
 function App() {
   return (
@@ -24,6 +26,10 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* Admin Routes */}
+        <Route path="/admin-login" element={<Admin_Login />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );

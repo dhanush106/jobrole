@@ -3,8 +3,13 @@ import numpy as np
 import re
 import os
 
-INPUT_FILE = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\career_recommender.csv'
-OUTPUT_FILE = r'C:\Users\vpran\OneDrive\Desktop\milestone\jobrole-main\training\cleaned_career_data.csv'
+# Get the directory of the current script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# PROJECT_ROOT is one level up from training folder
+PROJECT_ROOT = os.path.dirname(os.path.dirname(BASE_DIR))
+
+INPUT_FILE = os.path.join(PROJECT_ROOT, 'career_recommender.csv')
+OUTPUT_FILE = os.path.join(BASE_DIR, 'cleaned_career_data.csv')
 
 def clean_role(role):
     if pd.isna(role):
